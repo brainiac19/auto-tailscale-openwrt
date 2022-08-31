@@ -3,8 +3,11 @@
 #Set target CPU architecture here
 architecture=arm64
 
+echo Installing required packages...
+opkg update
+opkg install libustream-openssl ca-bundle kmod-tun
 echo Acquiring the latest stable version tag for architecture $architecture ...
-stable_tag=$(wget https://api.github.com/repos/tailscale/tailscale/releases/latest -4 -t 3 -q | grep tag_name | awk -Fv '{print $2}' | tr -d '",')
+stable_tag=$(wget https://api.github.com/repos/tailscale/tailscale/releases/latest -4 -t 3 -qO- | grep tag_name | awk -Fv '{print $2}' | tr -d '",')
 #Set version tag manually if failed to retrieve.
 #stable_tag=1.28.0
 if [ "$stable_tag" == "" ];then
@@ -34,5 +37,4 @@ chmod +x /etc/init.d/tailscale
 /etc/init.d/tailscale enable
 echo Starting tailscale.
 /etc/init.d/tailscale start
-tailscale up
-/etc/init.d/tailscale restart
+tailscale up --advertise-exit-node

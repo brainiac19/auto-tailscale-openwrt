@@ -5,7 +5,7 @@ Simply run `sh tailscale_setup.sh`, you will need to figure out the CPU architec
 
 The script specifies ipv4 when downloading stuff, so you may encounter problem if your network is somehow highly dependant on ipv6.
 
-It can also be used when upgrading, just say no when it asks wheather rewrite procd script.
+It can also be used when upgrading, just say no when it asks wheather to rewrite procd script.
 
 Oh and it needs persistent storage to work.
 

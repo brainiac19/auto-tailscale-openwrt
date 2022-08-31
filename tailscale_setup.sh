@@ -1,11 +1,15 @@
 #!/bin/sh
 
-#Set target CPU architecture here
-architecture=arm64
-
 echo Installing required packages...
 opkg update
 opkg install libustream-openssl ca-bundle kmod-tun
+
+read -p "Enter target architecture(386/amd64/arm/arm64/mips/mips64/mips64le/mipsle/riscv64)" architecture
+if [$architecture == ''];then
+echo Please enter valid CPU architecture.
+exit
+fi
+
 echo Acquiring the latest stable version tag for architecture $architecture ...
 stable_tag=$(wget https://api.github.com/repos/tailscale/tailscale/releases/latest -4 -t 3 -qO- | grep tag_name | awk -Fv '{print $2}' | tr -d '",')
 #Set version tag manually if failed to retrieve.

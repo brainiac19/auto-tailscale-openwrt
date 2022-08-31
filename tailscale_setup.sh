@@ -37,4 +37,4 @@ chmod +x /etc/init.d/tailscale
 /etc/init.d/tailscale enable
 echo Starting tailscale.
 /etc/init.d/tailscale start
-tailscale up --advertise-exit-node
+tailscale up
